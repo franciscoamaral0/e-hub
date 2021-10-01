@@ -1,6 +1,7 @@
 import { Button, Container, Typography, Grid, CardMedia, CardContent, Card, CardActions } from '@material-ui/core'
-import TemplateDefault from '../../src/templates/Default'
 import { makeStyles } from '@material-ui/core'
+
+import TemplateDefault from '../../src/templates/Default'
 
 
 const useStyles = makeStyles((theme) =>({
@@ -23,8 +24,8 @@ const Dashboard = () => {
 
   return (
     <TemplateDefault>
-      <Container maxWidth='sm'>
-        <Typography component='h1' variant='h2' align='center' className={classes.container}>
+      <Container maxWidth='sm' className={classes.container}>
+        <Typography component='h1' variant='h2' align='center' >
           Meus Anuncios
         </Typography>
           <Button variant='contained' color='primary' className={classes.buttonAdd}>
@@ -165,6 +166,9 @@ const Dashboard = () => {
               </CardActions>
             </Card>
           </Grid>
+
+
+          
         </Grid>
       </Container>
     </TemplateDefault>
