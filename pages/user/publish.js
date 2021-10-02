@@ -1,4 +1,16 @@
-import { Box, Button, Container, Select, TextField, Typography, IconButton } from '@material-ui/core'
+import {
+  Box,
+  Button,
+  Container,
+  Select,
+  TextField,
+  Typography,
+  IconButton,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment
+} from '@material-ui/core'
 
 import { useDropzone } from 'react-dropzone'
 import { makeStyles } from '@material-ui/core'
@@ -217,6 +229,29 @@ const Publish = () => {
           </Box>
         </Container>
               <br />
+        
+        <Container maxWidth='md' className={classes.boxContainer}>
+          <Box className={classes.box}>
+            <Typography component='h6' variant='h6'  color='textPrimary'>
+              Preço
+            </Typography>
+            <br/>
+            <FormControl
+            variant='outlined'
+            fullWidth
+            >
+            <InputLabel>Valor</InputLabel>
+            <OutlinedInput 
+              onChange={()=>{}}
+              startAdornment={<InputAdornment position='start'> €</InputAdornment>} 
+              labelWidth={40}
+            />
+            </FormControl>
+          </Box>
+        </Container>
+        
+        <br/>
+        
         <Container maxWidth='md' className={classes.boxContainer}>
           <Box className={classes.box}>
             <Typography component='h6' variant='h6'  color='textPrimary'>
