@@ -1,8 +1,9 @@
-import { Container, IconButton, InputBase, Typography, Paper, Grid, Card, CardMedia, CardContent } from '@material-ui/core'
+import { Container, IconButton, InputBase, Typography, Paper, Grid} from '@material-ui/core'
 import SerchIcon from '@material-ui/icons/Search'
 
 import { makeStyles } from '@material-ui/core'
 import TemplateDefault from '../src/templates/Default'
+import Card from '../src/components/Card'
 
 const useStyles = makeStyles((theme) => ({
   
@@ -12,11 +13,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0,2),
     marginTop: 20
   },
-  sizeImage:{
-    paddingTop:'56%'
-  },
+  cardGrid:{
+    marginTop: 50
 
-
+  }
 }))
 
 const Home =() =>{
@@ -44,21 +44,11 @@ const Home =() =>{
         <br/>
         <Grid container spacing={4}>
         <Grid item xs={12} sm={6} md={4}>
-            <Card>
-              <CardMedia
-                image={'https://source.unsplash.com/random'}
-                title='titulo imagem'
-                className={classes.sizeImage}
-              />
-              <CardContent>
-                <Typography variant='h5' component='h2'>
-                  Produto x
-                </Typography>
-                <Typography>
-                  €50,99
-                </Typography>
-              </CardContent>
-            </Card>
+        <Card
+            image={'https://source.unsplash.com/random'}
+            title='produto X'
+            subtitle='€60,00'
+            />
           </Grid>
         </Grid>
       </Container>
