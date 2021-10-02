@@ -243,7 +243,7 @@ const Publish = () => {
             <InputLabel>Valor</InputLabel>
             <OutlinedInput 
               onChange={()=>{}}
-              startAdornment={<InputAdornment position='start'> €</InputAdornment>} 
+              startAdornment={<InputAdornment position='start'> € </InputAdornment>} 
               labelWidth={40}
             />
             </FormControl>
