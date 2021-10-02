@@ -22,9 +22,7 @@ import { useState } from 'react'
 const useStyles = makeStyles((theme) =>({
   mask: {},
   mainImage:{},
-  container :{
-    padding: theme.spacing(8,0,6) 
-  },
+  
   boxContaier:{
     paddingBottom: theme.spacing(3),
   
@@ -118,7 +116,7 @@ const Publish = () => {
   
   return(
     <TemplateDefault>
-      <Container maxWidth='sm' className={classes.container}>
+      <Container maxWidth='sm'>
         <Typography component='h1' variant='h2' align='center' color='textPrimary' >
           Publicar Anúncio
         </Typography>
@@ -126,7 +124,7 @@ const Publish = () => {
           Insira o mais detalhado possivel!
         </Typography>
       </Container>
-
+        <br/><br/>
         <Container maxWidth='md' className={classes.boxContaier}>
           <Box className={classes.box}>
             <Typography component='h6' variant='h6'  color='textPrimary'>
