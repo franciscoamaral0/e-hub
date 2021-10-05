@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) =>({
 
   },
 
+  gridContainer:{
+    marginTop: 10
+  }
+
 }))
 
 const Dashboard = () => {
@@ -29,8 +33,8 @@ const Dashboard = () => {
           </Button>
       </Container>
 
-      <Container maxWidth='md' >
-        <Grid container spacing={4}>
+      <Container maxWidth='md' className={classes.gridContainer} >
+        <Grid container spacing={4} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={4}>
             <Card
             image={'https://source.unsplash.com/random'}

@@ -2,7 +2,7 @@ import { Avatar, Box, Card, CardHeader, CardMedia, Chip, Container, Grid, Typogr
 import { makeStyles } from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
-import TemplateDefault from '../src/templates/Default'
+import TemplateDefault from '../../src/templates/Default'
 
 const useStyle= makeStyles((theme)=>({
   box:{

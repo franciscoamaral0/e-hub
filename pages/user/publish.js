@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) =>({
   mask: {},
   mainImage:{},
   
-  boxContaier:{
+  boxContainer:{
     paddingBottom: theme.spacing(3),
   
   },
@@ -226,7 +226,7 @@ const Publish = () => {
             />
           </Box>
         </Container>
-              <br />
+              
         
         <Container maxWidth='md' className={classes.boxContainer}>
           <Box className={classes.box}>
@@ -248,7 +248,7 @@ const Publish = () => {
           </Box>
         </Container>
         
-        <br/>
+        
         
         <Container maxWidth='md' className={classes.boxContainer}>
           <Box className={classes.box}>
@@ -279,7 +279,7 @@ const Publish = () => {
             />
           </Box>
         </Container>
-            <br />
+           
         <Container maxWidth='md' className={classes.boxContainer}>
           <Box textAlign='right'>
             <Button variant='contained' color='primary'>Publicar Anúncio</Button>
