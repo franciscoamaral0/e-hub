@@ -1,6 +1,7 @@
 import { Avatar, Box, Card, CardHeader, CardMedia, Chip, Container, Grid, Typography } from '@material-ui/core'
-
 import { makeStyles } from '@material-ui/core'
+import Carousel from 'react-material-ui-carousel'
+
 import TemplateDefault from '../src/templates/Default'
 
 const useStyle= makeStyles((theme)=>({
@@ -15,6 +16,12 @@ const useStyle= makeStyles((theme)=>({
   price: {
     fontWeight: 'bold',
     marginBottom: 15
+  },
+  card:{
+    height: '100%'
+  },
+  cardMedia:{
+    paddingTop: '56%'
   }
 }))
 
@@ -29,9 +36,35 @@ const Product = () =>{
       <Container maxWidth='lg'>
         <Grid container spacing={3}>
           <Grid item xs={8} >
-            <Box className={classes.box}>
+              <Box className={classes.box}>
+                <Carousel
+                  autoPlay={false}
+                  navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+                    style: {
+                        color: 'white'
+                    }
+                }} 
+                animation='slide'
+                navButtonsAlwaysVisible
+                >
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={'https://source.unsplash.com/random?a=1'}
+                      title='Titulo da Imagem'
+                    />
+                  </Card>
 
-            </Box>
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={'https://source.unsplash.com/random?a=2'}
+                      title='Titulo da Imagem'
+                    />
+                  </Card>
+                </Carousel>
+              </Box>
+            
 
             <Box className={classes.box} textAlign='left'>
               <Typography component='span' variant='caption' >Publicado 16 de junho de 2021</Typography>
