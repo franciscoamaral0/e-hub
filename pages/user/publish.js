@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Formik } from "formik";
-import * as yup from 'yup'
+import * as yup from "yup";
 
 import {
   Box,
@@ -15,8 +15,8 @@ import {
   OutlinedInput,
   InputAdornment,
   MenuItem,
-  FormHelperText
-
+  FormHelperText,
+  Input,
 } from "@material-ui/core";
 
 import { useDropzone } from "react-dropzone";
@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginTop: 15,
     flexWrap: "wrap",
+  },
+  inputLabel:{
+    fontWeight: 400,
+    color: theme.palette.primary.main
   },
   // Area interna com borda dashed
   dropZone: {
@@ -86,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       textAlign: " center",
     },
+    
   },
 }));
 
@@ -114,31 +119,32 @@ const Publish = () => {
 
   const validationSchema = yup.object().shape({
     title: yup.string()
-      .min(6, 'Por favor, insira um título com no minimo 6 caracteres.')
-      .max(60, 'Titulo com no maximo 60 caracteres.')
-      .required('Campo Obrigatorio.'),
-    category: yup.string().required('Campo Obrigatório')
-  })
+      .min(6, "Por favor, insira um título com no minimo 6 caracteres.")
+      .max(60, "Titulo com no maximo 60 caracteres.")
+      .required("Campo Obrigatorio."),
+    category: yup.string()
+      .required("Campo Obrigatório"),
+    description: yup.string().required('Campo Obrigatório')
+      .min(50, "Escreva uma descrição com no minimo 50 caracteres")
+      .max(200, "Limite de 200 caracteres Atingido")
+    
+  });
 
   return (
     <TemplateDefault>
-      <Formik 
+      <Formik
         initialValues={{
-          title: '',
-          category: '',
-        }} 
+          title: "",
+          category: "",
+          description: "",
+        }}
         validationSchema={validationSchema}
-        onSubmit={(values) =>{
-          console.log('ok enviou form', values)
+        onSubmit={(values) => {
+          console.log("ok enviou form", values);
         }}
       >
-        {({
-          values,
-          errors,
-          handleChange,
-          handleSubmit,
-        }) => {
-          console.log(errors)
+        {({ values, errors, handleChange, handleSubmit }) => {
+          console.log(errors);
           return (
             <form onSubmit={handleSubmit}>
               <Container maxWidth="sm">
@@ -163,52 +169,53 @@ const Publish = () => {
               <br />
               <Container maxWidth="md" className={classes.boxContaier}>
                 <Box className={classes.box}>
-                  <Typography component="h6" variant="h6" color="textPrimary">
-                    Título do Anúncio
-                  </Typography>
-                  <TextField
-                    name='title'
-                    value={values.title}
-                    onChange={handleChange}
-                    label="ex: Iphone 12 com garantia"
-                    size="small"
-                    fullWidth
-                    error={errors.title}
-                    helperText={errors.title}
-                  />
+                  <FormControl error={errors.title} fullWidth>
+                    <InputLabel className={classes.inputLabel}>Título do Anúncio</InputLabel>
+                    <Input
+                      name="title"
+                      value={values.title}
+                      onChange={handleChange}
+                    />
+                    <FormHelperText>{errors.title}</FormHelperText>
+                  </FormControl>
+
                   <br />
                   <br />
-                  <Typography component="h6" variant="h6" color="textPrimary">
-                    Categorias
-                  </Typography>
-                    <FormControl error={errors.category} fullWidth>
-                      <Select
-                        name= 'category'
-                        value={values.category}
-                        fullWidth
-                        onChange={handleChange}
-                      
-                      >
-                        <MenuItem value="">Selecionar</MenuItem>
-                        <MenuItem value='Bebê e Criança'>Bebê e Criança</MenuItem>
-                        <MenuItem value='Agricultura'>Agricultura</MenuItem>
-                        <MenuItem value='Moda'>Moda</MenuItem>
-                        <MenuItem value='Carros,Motos e Barco'>Carros,Motos e Barcos</MenuItem>
-                        <MenuItem value='Serviços'>Serviços</MenuItem>
-                        <MenuItem value='Lazer'>Lazer</MenuItem>
-                        <MenuItem value='Moveis, Casa e Jardim'>Moveis, Casa e Jardim</MenuItem>
-                        <MenuItem value='Imóveis'>Imóveis</MenuItem>
-                        <MenuItem value='Equipamentos E Ferramentas'>Equipamentos E Ferramentas</MenuItem>
-                        <MenuItem value='Celulares eTablets'>Celulares eTablets</MenuItem>
-                        <MenuItem value='Esporte'>Esporte</MenuItem>
-                        <MenuItem value='Tecnologia'>Tecnologia</MenuItem>
-                        <MenuItem value='Emprego'>Emprego</MenuItem>
-                        <MenuItem value='Outros'>Outros</MenuItem>
-                      </Select>
-                      <FormHelperText>
-                        {errors.category}
-                      </FormHelperText>
-                    </FormControl>
+
+                  <FormControl error={errors.category} fullWidth>
+                    <InputLabel className={classes.inputLabel}> Categorias </InputLabel>
+                    <Select
+                      name="category"
+                      value={values.category}
+                      fullWidth
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="">Selecionar</MenuItem>
+                      <MenuItem value="Bebê e Criança">Bebê e Criança</MenuItem>
+                      <MenuItem value="Agricultura">Agricultura</MenuItem>
+                      <MenuItem value="Moda">Moda</MenuItem>
+                      <MenuItem value="Carros,Motos e Barco">
+                        Carros,Motos e Barcos
+                      </MenuItem>
+                      <MenuItem value="Serviços">Serviços</MenuItem>
+                      <MenuItem value="Lazer">Lazer</MenuItem>
+                      <MenuItem value="Moveis, Casa e Jardim">
+                        Moveis, Casa e Jardim
+                      </MenuItem>
+                      <MenuItem value="Imóveis">Imóveis</MenuItem>
+                      <MenuItem value="Equipamentos E Ferramentas">
+                        Equipamentos E Ferramentas
+                      </MenuItem>
+                      <MenuItem value="Celulares eTablets">
+                        Celulares eTablets
+                      </MenuItem>
+                      <MenuItem value="Esporte">Esporte</MenuItem>
+                      <MenuItem value="Tecnologia">Tecnologia</MenuItem>
+                      <MenuItem value="Emprego">Emprego</MenuItem>
+                      <MenuItem value="Outros">Outros</MenuItem>
+                    </Select>
+                    <FormHelperText>{errors.category}</FormHelperText>
+                  </FormControl>
                 </Box>
               </Container>
 
@@ -262,17 +269,13 @@ const Publish = () => {
 
               <Container maxWidth="md" className={classes.boxContainer}>
                 <Box className={classes.box}>
-                  <Typography component="h6" variant="h6" color="textPrimary">
-                    Descrição
-                  </Typography>
-                  <Typography
-                    component="div"
-                    variant="body2"
-                    color="textPrimary"
-                  >
-                    Escreva os detalhes sobre seu produto.
-                  </Typography>
-                  <TextField multiline rows={6} variant="outlined" fullWidth />
+                  <FormControl error={errors.description} fullWidth>
+                    <InputLabel className={classes.inputLabel}>
+                      Escreva os detalhes sobre seu produto.
+                    </InputLabel>
+                    <Input name='description' value={values.description} onChange={handleChange} multiline rows={6} variant="outlined" />
+                    <FormHelperText>{errors.description}</FormHelperText>
+                  </FormControl>
                 </Box>
               </Container>
 
@@ -325,7 +328,7 @@ const Publish = () => {
 
               <Container maxWidth="md" className={classes.boxContainer}>
                 <Box textAlign="right">
-                  <Button type='submit' variant="contained" color="primary">
+                  <Button type="submit" variant="contained" color="primary">
                     Publicar Anúncio
                   </Button>
                 </Box>
