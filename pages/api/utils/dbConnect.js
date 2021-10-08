@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
+require('dotenv').config()
 
 const MONGODB_URI = process.env.MONGODB_URI
+console.log(MONGODB_URI)
 
 if (!MONGODB_URI) {
   throw new Error(
@@ -32,6 +34,7 @@ async function dbConnect() {
     }
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('connected to database')
       return mongoose
     })
   }
