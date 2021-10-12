@@ -112,6 +112,20 @@ const Signup = () => {
                       </FormHelperText>
                     </FormControl>
 
+                    <FormControl fullWidth error={errors.cep && touched.cep} className={classes.formControl}>
+                      <InputLabel className={classes.inputLabel}>Cep</InputLabel>
+                        <Input
+                          name='cep'
+                          type='text'
+                          value={values.cep}
+                          onChange={handleChange}
+                        />
+                        
+                      <FormHelperText>
+                        {errors.cep && touched.cep ? errors.cep : null}
+                      </FormHelperText>
+                    </FormControl>
+
                     {/* Precisa ainda ser adicionado no cadastro do usuario
                       "age": 21,
                       "cpf": 11122233345,
