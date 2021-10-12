@@ -1,7 +1,10 @@
-import { Container, Typography, FormControl, InputLabel, Box, FormHelperText, Input, Button } from '@material-ui/core'
+import { Container, Typography, FormControl, InputLabel, Box, FormHelperText, Input, Button, CircularProgress } from '@material-ui/core'
 import { Formik } from 'formik'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import TemplateDefault from '../../../src/templates/Default'
+import useToasty from '../../../src/contexts/Toasty'
 import useStyles from './signup.styles'
 import { initialValues, validationSchema } from './formValues'
 
@@ -9,6 +12,21 @@ import { initialValues, validationSchema } from './formValues'
 
 const Signup = () => {
   const classes = useStyles()
+  const {setToasty} = useToasty()
+  const router = useRouter()
+
+  const handleFormSubmit = async (values) =>{
+    const response = await axios.post('/api/users', values)
+    if(response.data.success) {
+      setToasty({
+        open: true,
+        severity: 'success',
+        text: 'Registo realizado com sucesso'
+      })
+      router.push('/auth/signin')
+    }
+    // vamos redirecionar user para pagina de login
+  }
 
 
   return(
@@ -27,9 +45,7 @@ const Signup = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-              console.log('verificar se foi', values)
-            }}
+            onSubmit={handleFormSubmit}
           >
             {
               ({
@@ -37,7 +53,8 @@ const Signup = () => {
                 values,
                 errors,
                 handleChange,
-                handleSubmit
+                handleSubmit,
+                isSubmitting
               })=> {
                 return(
                   <form onSubmit={handleSubmit}>
@@ -105,16 +122,22 @@ const Signup = () => {
                       "zipcode": 11111111
                      */}
 
-                    <Button
-                      type='submit'
-                      fullWidth
-                      variant='contained'
-                      color='primary'
-                      className={classes.submit}
-                      
-                    >
-                      Registar
-                    </Button>
+                    {
+                      isSubmitting 
+                      ? (<CircularProgress className={classes.loading}/>)
+                      : (<Button
+                        type='submit'
+                        fullWidth
+                        variant='contained'
+                        color='primary'
+                        className={classes.submit}
+                        
+                      >
+                        Registar
+                      </Button>)
+                    }
+
+            
 
                   </form>
                 )
