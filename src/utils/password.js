@@ -7,6 +7,13 @@ const crypto =  (pwd) =>{
 }
 
 
+const compare = (password, hash) =>{
+  const result = bcrypt.compare(password, hash)
+
+  return result
+}
+
 export {
   crypto,
+  compare
 }
