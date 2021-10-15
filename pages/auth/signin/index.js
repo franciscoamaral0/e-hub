@@ -9,6 +9,7 @@ import useToasty from '../../../src/contexts/Toasty'
 import useStyles from './signin.styles'
 import { initialValues, validationSchema } from './formValues'
 import { Alert } from '@material-ui/lab'
+import Image from 'next/image'
 
 
 
@@ -25,8 +26,12 @@ const Signin = () => {
       password: values.password,
       callbackUrl: 'http://localhost:3000/user/dashboard' 
     } )
-  
   }
+
+  const handleGoogleLogin = async (values) =>{
+    signIn('google', {callbackUrl: 'http://localhost:3000/user/dashboard'})
+  }
+  
 
 
   return(
@@ -36,9 +41,36 @@ const Signin = () => {
           Faça login na sua conta
         </Typography>
       </Container>
+      
+      
 
       <Container maxWidth='md'>
         <Box className={classes.box}>
+        
+        <Box display='flex' justifyContent='center'>
+        <Button
+          variant='contained'
+          color='primary'
+          startIcon={
+            <Image 
+              src='/images/logo_google.svg'
+              width={20}
+              height={20}
+              alt='google Login Logo'
+            />
+          }
+          onClick={() => handleGoogleLogin()}
+        >
+
+
+            
+        Entrar com Google
+        </Button>
+        </Box>
+
+        <Box className={classes.loginMethodSeparator}>
+          <span>Ou</span>
+        </Box>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
