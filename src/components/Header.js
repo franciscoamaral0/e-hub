@@ -18,6 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import { useState } from 'react';
+import {useSession, signOut} from 'next-auth/client'
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Header = () =>  {
   const classes = useStyles()
+  const [session] = useSession()
   const [anchorUserMenu, setAnchorUserMenu] = useState(false)
 
 
@@ -53,20 +55,29 @@ const Header = () =>  {
               <Image src='/../public/eHub_logo-removebg-preview.png' alt='logo' width={110} height={50}/> 
             </Box>
             {/* </Link>   */}
-            <Link href='/user/publish' passHref>
+            <Link href={session ? '/user/publish' : '/auth/signin'} passHref>
               <Button variant='outlined' color='inherit'>Anunciar e Vender</Button>
             </Link>
-            <IconButton color= 'secondary' onClick={(e) => setAnchorUserMenu(e.currentTarget)} >
+            
             {
-              true === false ?
-              <Avatar src='' /> :
-              <AccountCircle/>
+              session 
+                ? (
+                  <IconButton color= 'secondary' onClick={(e) => setAnchorUserMenu(e.currentTarget)} >
+                  {
+                    session.user.image ?
+                    <Avatar src={session.user.image} /> :
+                    <AccountCircle/>
 
+                  }
+                    <Typography className={classes.userName} variant='subtitle2' color='secondary'>
+                      {session.user.name}
+                    </Typography>
+                  </IconButton>
+
+                ) : null
             }
-              <Typography className={classes.userName} variant='subtitle2' color='secondary'>
-                Francisco Amaral
-              </Typography>
-            </IconButton>
+            
+            
 
             <Menu
             anchorEl={anchorUserMenu}
@@ -81,7 +92,7 @@ const Header = () =>  {
               <MenuItem>Meus Anuncios</MenuItem>
               <MenuItem>Publicar Novo Anuncio</MenuItem>
               <Divider className={classes.divider}/>
-              <MenuItem>Sair</MenuItem>
+              <MenuItem onClick={() => signOut({callbackUrl: '/'})}>Sair</MenuItem>
             </Menu>
 
 
