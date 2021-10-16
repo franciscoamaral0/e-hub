@@ -127,5 +127,6 @@ const Dashboard = () => {
   )
 
 }
+Dashboard.requireAuth = true
 
 export default Dashboard

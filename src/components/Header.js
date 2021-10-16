@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import { useState } from 'react';
 import {useSession, signOut} from 'next-auth/client'
+import LogoEHub from '../../public/images/eHub_logo-removebg-preview.png'
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -52,7 +53,7 @@ const Header = () =>  {
           <Toolbar>
             {/* <Link href='/' passHref> add route to / */}
             <Box variant='h6' className={classes.title}>
-              <Image src='/../public/eHub_logo-removebg-preview.png' alt='logo' width={110} height={50}/> 
+              <Image src={LogoEHub} alt='logo' width={110} height={50}/> 
             </Box>
             {/* </Link>   */}
             <Link href={session ? '/user/publish' : '/auth/signin'} passHref>
