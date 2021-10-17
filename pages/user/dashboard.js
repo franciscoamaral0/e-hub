@@ -1,8 +1,14 @@
 import { Button, Container, Typography, Grid} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 
+
+import { getSession } from 'next-auth/client'
+import ProductsModel from '../../src/models/product'
+import dbConnect from '../../src/utils/dbConnect'
+
 import TemplateDefault from '../../src/templates/Default'
 import Card from '../../src/components/Card'
+
 
 
 const useStyles = makeStyles((theme) =>({
@@ -19,7 +25,7 @@ const useStyles = makeStyles((theme) =>({
 
 }))
 
-const Dashboard = () => {
+const Dashboard = ({products}) => {
   const classes = useStyles()
 
   return (
@@ -35,89 +41,25 @@ const Dashboard = () => {
 
       <Container maxWidth='md' className={classes.gridContainer} >
         <Grid container spacing={4} className={classes.gridContainer}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card
-            image={'https://source.unsplash.com/random'}
-            title='produto X'
-            subtitle='€60,00'
-            isButton={
-              <>
-                <Button size='small' color='primary'>Editar</Button>
-                <Button size='small' color='primary'>Editar</Button>
-              </>  
-            }
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-            image={'https://source.unsplash.com/random'}
-            title='produto X'
-            subtitle='€60,00'
-            isButton={
-              <>
-                <Button size='small' color='primary'>Editar</Button>
-                <Button size='small' color='primary'>Editar</Button>
-              </>  
-            }
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-            image={'https://source.unsplash.com/random'}
-            title='produto X'
-            subtitle='€60,00'
-            isButton={
-              <>
-                <Button size='small' color='primary'>Editar</Button>
-                <Button size='small' color='primary'>Editar</Button>
-              </>  
-            }
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-            image={'https://source.unsplash.com/random'}
-            title='produto X'
-            subtitle='€60,00'
-            isButton={
-              <>
-                <Button size='small' color='primary'>Editar</Button>
-                <Button size='small' color='primary'>Editar</Button>
-              </>  
-            }
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-            image={'https://source.unsplash.com/random'}
-            title='produto X'
-            subtitle='€60,00'
-            isButton={
-              <>
-                <Button size='small' color='primary'>Editar</Button>
-                <Button size='small' color='primary'>Editar</Button>
-              </>  
-            }
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-            image={'https://source.unsplash.com/random'}
-            title='produto X'
-            subtitle='€60,00'
-            isButton={
-              <>
-                <Button size='small' color='primary'>Editar</Button>
-                <Button size='small' color='primary'>Editar</Button>
-              </>  
-            }
-            />
-          </Grid>
+          {
+            products.map((product) =>(
+              <Grid key={product._id}item xs={12} sm={6} md={4}>
+                <Card
+                image={`/uploads/${product.files[0].name}`}
+                title={product.title}
+                subtitle={product.price}
+                isButton={
+                  <>
+                    <Button size='small' color='primary'>Editar</Button>
+                    <Button size='small' color='primary'>Apagar</Button>
+                  </>  
+                }
+                />
+              </Grid>
+            ))
+          }
+          
+          
 
 
           
@@ -128,5 +70,18 @@ const Dashboard = () => {
 
 }
 Dashboard.requireAuth = true
+
+export async function getServerSideProps({ req}) {
+  const session = await getSession({req})
+  await dbConnect()
+
+  const products = await ProductsModel.find({ 'user.id': session.userId})
+
+  return{
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+    }
+  }
+}
 
 export default Dashboard

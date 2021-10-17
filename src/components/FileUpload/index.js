@@ -19,11 +19,9 @@ const FileUpload = ({files, errors, touched, setFieldValue}) => {
     accept: "image/*",
     onDrop: (acceptedFile) => {
       console.log(acceptedFile);
-      const newFiles = acceptedFile.map((element) => {
-        return Object.assign(element, {
-          preview: URL.createObjectURL(element),
-        });
-      });
+      const newFiles = acceptedFile.map((file) => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      }));
       setFieldValue("files", [...files, ...newFiles]);
     },
   });
@@ -54,7 +52,7 @@ const FileUpload = ({files, errors, touched, setFieldValue}) => {
           {errors}
         </Typography>
       ) : (
-        "textPrimary"
+        null
       )}
       <Box className={classes.thumbsContainer}>
         <Box className={classes.dropZone} {...getRootProps()}>
