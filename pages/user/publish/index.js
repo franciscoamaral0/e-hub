@@ -71,7 +71,7 @@ const Publish = ({userId, image}) => {
         formData.append(field, values[field])
       }
     }
-    axios.post('/api/products' , formData).then(handleSucess).catch(handleError)
+    axios.post('/api/products/post' , formData).then(handleSucess).catch(handleError)
   }
 
   // const [files, setFiles] = useState([]);

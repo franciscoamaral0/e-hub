@@ -1,4 +1,4 @@
-import { post} from '../../src/controllers/products'
+import { post} from '../../../src/controllers/products'
 import nextConnect from "next-connect"
 
 
