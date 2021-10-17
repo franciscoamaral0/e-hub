@@ -9,6 +9,9 @@ import Card from '../src/components/Card'
 import dbConnect from '../src/utils/dbConnect'
 import ProductsModel from '../src/models/product'
 import { formatCurrency } from '../src/utils/currency'
+import { useState } from 'react'
+import { useRouter } from 'next/dist/client/router'
+
 
 const useStyles = makeStyles((theme) => ({
   
@@ -28,7 +31,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Home =({products}) =>{
+  const router = useRouter()
   const classes = useStyles()
+  const [search, setSearch] = useState()
+
+  const handleSubmitSearch =() =>{
+    router.push({
+      pathname: `/search/${search}`
+    })
+  }
 
 
   return(
@@ -38,8 +49,11 @@ const Home =({products}) =>{
           O que deseja encontrar?
         </Typography>
         <Paper className={classes.searchBox}>
-          <InputBase fullWidth placeholder='Ex.: Iphone 12 com garantia'/>
-          <IconButton>
+          <InputBase
+          onChange={(e) => setSearch(e.target.value)}
+          fullWidth
+          placeholder='Ex.: Iphone 12 com garantia'/>
+          <IconButton onClick={handleSubmitSearch}>
             <SerchIcon/>
           </IconButton>
         </Paper>
